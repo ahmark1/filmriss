@@ -14,11 +14,12 @@ const MovieFeedbackPage = () => {
       document.activeElement.blur();
     }
   
-    const feedback = { rating, review, suggestion };
-    console.log('Submitted Feedback:', feedback);
-    alert(`Thank you for your feedback! Your rating: ${rating}`);
+    // Delay the alert to give the keyboard time to close
+    setTimeout(() => {
+      alert(`Thank you for your feedback! Your rating: ${rating}`);
+    }, 300); // Adjust delay if necessary
   
-    // Reset the form fields
+    // Reset form fields
     setRating(0);
     setReview('');
     setSuggestion('');
