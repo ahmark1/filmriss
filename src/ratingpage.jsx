@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Rating } from '@mui/material';
 
 const MovieFeedbackPage = () => {
   const [rating, setRating] = useState(0);
@@ -10,49 +10,43 @@ const MovieFeedbackPage = () => {
     e.preventDefault();
     const feedback = { rating, review, suggestion };
     console.log('Submitted Feedback:', feedback);
-    alert('Thank you for your feedback!');
+    alert(`Thank you for your feedback! Your rating: ${rating}`);
     setRating(0);
     setReview('');
     setSuggestion('');
   };
+
   const logoURL = 'https://unikino.s3.eu-north-1.amazonaws.com/filmriss.png';
 
   return (
-    <div style={{ fontFamily: 'Oswald, sans-serif',  margin: '0px', textAlign: 'center'  }}>
-      <img src={logoURL} alt="uniKino Logo" style={{ width: '150px', margin: '0px', marginBottom: '-60px',}} />
+    <div style={{ fontFamily: 'Oswald, sans-serif', margin: '0px', textAlign: 'center' }}>
+      <img
+        src={logoURL}
+        alt="uniKino Logo"
+        style={{ width: '150px', margin: '0px', marginBottom: '-60px' }}
+      />
       <h1>Movie Feedback</h1>
       <img
-        src="https://m.media-amazon.com/images/I/61bhukPM8ZL._AC_SL1500_.jpg"
+        src="https://m.media-amazon.com/images/M/MV5BMzA5Zjg3MTAtM2FhZS00NTNjLTg3NjEtNWQ4MTRhZjhiNzVmXkEyXkFqcGc@._V1_.jpg"
         alt="Movie Poster"
-       
-        width={300} height={400}
+        width={400}
+        height={500}
       />
-      <h1>Anatomy of a Fall</h1>
+      <h1>The Boy and the Heron</h1>
+      <Rating
+        name="half-rating"
+        value={rating}
+        onChange={(event, newValue) => {
+          setRating(newValue);
+        }}
+        precision={0.5}
+        size="large"
+        sx={{
+          fontSize: '3rem', // Adjust the size here, e.g., 3rem for even bigger stars
+        }}
+      />
 
       <form onSubmit={handleSubmit} style={{ marginTop: '20px', textAlign: 'left' }}>
-       {/* Custom Star Rating */}
-      <div style={{ display: 'flex', alignItems: 'center', 
-      justifyContent: 'center',  cursor: 'pointer', marginTop:'-35px' }}>
-        {[...Array(5)].map((star, index) => {
-          const ratingValue = index + 1;
-          return (
-            <span 
-              key={index}
-              onMouseOver={() => handleMouseOver(ratingValue)}
-              onClick={() => handleClick(ratingValue)}
-              style={{
-                
-                color: ratingValue <= rating ? '#FFD700' : '#ccc', // Gold for selected stars
-                fontSize: '60px',  // Star size
-                margin: '0 5px',
-              }}
-            >
-              ★
-            </span>
-          );
-        })}
-        </div>
-
         {/* Review */}
         <div style={{ marginTop: '20px' }}>
           <label>
@@ -62,7 +56,7 @@ const MovieFeedbackPage = () => {
             value={review}
             onChange={(e) => setReview(e.target.value)}
             style={{
-                fontFamily: 'Oswald, sans-serif',
+              fontFamily: 'Oswald, sans-serif',
               display: 'block',
               width: '100%',
               height: '80px',
@@ -86,7 +80,7 @@ const MovieFeedbackPage = () => {
             value={suggestion}
             onChange={(e) => setSuggestion(e.target.value)}
             style={{
-                fontFamily: 'Oswald, sans-serif',
+              fontFamily: 'Oswald, sans-serif',
               display: 'block',
               width: '100%',
               height: '80px',
@@ -119,7 +113,6 @@ const MovieFeedbackPage = () => {
         </button>
       </form>
     </div>
- 
   );
 };
 
