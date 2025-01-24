@@ -8,9 +8,17 @@ const MovieFeedbackPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
+    // Close the keyboard by blurring the active input
+    if (document.activeElement) {
+      document.activeElement.blur();
+    }
+  
     const feedback = { rating, review, suggestion };
     console.log('Submitted Feedback:', feedback);
     alert(`Thank you for your feedback! Your rating: ${rating}`);
+  
+    // Reset the form fields
     setRating(0);
     setReview('');
     setSuggestion('');
