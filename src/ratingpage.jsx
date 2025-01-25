@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import { Rating } from '@mui/material';
+import axios from 'axios';
 
 const MovieFeedbackPage = () => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
   const [suggestion, setSuggestion] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Close the keyboard by blurring the active input
     if (document.activeElement) {
       document.activeElement.blur();
     }
   
-    // Delay the alert to give the keyboard time to close
-    setTimeout(() => {
-      alert(`Thank you for your feedback! Your rating: ${rating}`);
-    }, 300); // Adjust delay if necessary
+    const feedback = { rating, review, suggestion };
   
-    // Reset form fields
+    try {
+      const response = await axios.post('https://filmriss-backend.onrender.com/api/feedback', feedback);
+      alert(response.data.message);
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      alert('Failed to submit feedback. Please try again.');
+    }
+  
     setRating(0);
     setReview('');
     setSuggestion('');
